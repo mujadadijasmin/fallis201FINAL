@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evidence Match 🕵️‍♀️ | Cute True Crime Memory Game</title>
+
+  <!-- Cute Google Font (optional, safe to remove if you want offline only) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#fff7fb;
+      --bg2:#f2fbff;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --card:#ffffffcc;
+      --border:#f0cfe4;
+      --accent:#ff5aa5;
+      --accent2:#6ad7ff;
+      --shadow: 0 12px 28px rgba(31,41,55,.12);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: "Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 600px at 20% 10%, #ffe3f2 0%, transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, #dff6ff 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      text-align:center;
+    }
+
+    .app{
+      width:min(980px, 96vw);
+      background:var(--card);
+      border:1px solid rgba(240,207,228,.9);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* cute sparkles */
+    .app:before, .app:after{
+      content:"";
+      position:absolute;
+      width:280px; height:280px;
+      border-radius:50%;
+      filter: blur(18px);
+      opacity:.35;
+      z-index:0;
+    }
+    .app:before{
+      background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+      top:-110px; left:-90px;
+    }
+    .app:after{
+      background: radial-gradient(circle, var(--accent2) 0%, transparent 60%);
+      bottom:-120px; right:-110px;
+    }
+
+    .content{ position:relative; z-index:1; }
+
+    h1{
+      margin:4px 0 6px;
+      font-size: clamp(26px, 3.6vw, 40px);
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin:0 auto 14px;
+      max-width: 62ch;
+      color:var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .topbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:center;
+      margin:14px 0 16px;
+    }
+
+    .pill{
+      background:#fff;
+      border:1px solid rgba(240,207,228,.9);
+      border-radius:999px;
+      padding:10px 14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      box-shadow: 0 8px 18px rgba(31,41,55,.06);
+      font-weight:700;
+    }
+    .pill span{
+      font-weight:800;
+      color:var(--ink);
+    }
+    .pill small{
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    button{
+      font-family:inherit;
+      border:none;
+      cursor:pointer;
+    }
+
+    .btn{
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:800;
+      background: linear-gradient(135deg, var(--accent), #ff86c2);
+      color:white;
+      box-shadow: 0 10px 20px rgba(255,90,165,.22);
+      border:1px solid rgba(255,90,165,.25);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:active{ transform: translateY(0px); }
+
+    .btn-ghost{
+      background: #ffffff;
+      color: var(--ink);
+      border:1px solid rgba(240,207,228,.9);
+      box-shadow: 0 10px 20px rgba(31,41,55,.06);
+    }
+
+    .board{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:12px;
+      margin: 10px auto 8px;
+      width: min(560px, 94%);
+    }
+    @media (max-width: 520px){
+      .board{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    .card{
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      border: 1px solid rgba(240,207,228,.9);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 10px 18px rgba(31,41,55,.08);
+      position:relative;
+      transform-style: preserve-3d;
+      transition: transform .28s ease;
+      user-select:none;
+      outline:none;
+    }
+    .card:focus{
+      box-shadow: 0 0 0 4px rgba(106,215,255,.35), 0 10px 18px rgba(31,41,55,.08);
+    }
+
+    .card-inner{
+      position:absolute; inset:0;
+      display:grid;
+      place-items:center;
+      font-size: clamp(26px, 3.8vw, 40px);
+      border-radius: 16px;
+      backface-visibility: hidden;
+    }
+
+    .front{
+      transform: rotateY(180deg);
+      background: rgba(255,255,255,.92);
+    }
+
+    .back{
+      background:
+        radial-gradient(14px 14px at 25% 30%, rgba(255,90,165,.35) 0%, transparent 60%),
+        radial-gradient(14px 14px at 75% 70%, rgba(106,215,255,.35) 0%, transparent 60%),
+        linear-gradient(135deg, #fff, #fff6fb);
+      font-size: 24px;
+    }
+
+    .card.flipped{ transform: rotateY(180deg); }
+    .card.matched{
+      border-color: rgba(106,215,255,.8);
+      box-shadow: 0 10px 22px rgba(106,215,255,.16);
+    }
+
+    .hint{
+      margin:10px 0 0;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .toast{
+      margin: 12px auto 0;
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:14px;
+      background:#fff;
+      border:1px solid rgba(240,207,228,.9);
+      box-shadow: 0 10px 20px rgba(31,41,55,.06);
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    /* Win modal */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background: rgba(17,24,39,.25);
+      backdrop-filter: blur(6px);
+      z-index:50;
+    }
+    .modal.show{ display:flex; }
+
+    .modal-card{
+      width:min(520px, 92vw);
+      background:#fff;
+      border-radius:22px;
+      border:1px solid rgba(240,207,228,.9);
+      box-shadow: 0 18px 40px rgba(31,41,55,.22);
+      padding:18px;
+      text-align:center;
+    }
+    .modal-card h2{
+      margin:6px 0 6px;
+      font-size: 1.6rem;
+      font-weight:800;
+    }
+    .modal-card p{ margin:0 0 14px; color:var(--muted); font-weight:700; }
+
+    .modal-actions{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    a.backlink{
+      display:inline-block;
+      margin-top: 14px;
+      color: var(--ink);
+      font-weight:800;
+      text-decoration:none;
+      border-bottom: 2px solid rgba(255,90,165,.35);
+      padding-bottom:2px;
+    }
+    a.backlink:hover{
+      border-bottom-color: rgba(255,90,165,.7);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app" role="application" aria-label="Evidence Match Memory Game">
+    <div class="content">
+      <h1>Evidence Match 🕵️‍♀️</h1>
+      <p class="subtitle">
+        Flip the cards and match the “evidence” pairs. Cute theme, serious brain power.
+      </p>
+
+      <div class="topbar">
+        <div class="pill" aria-live="polite"><small>Moves</small> <span id="moves">0</span></div>
+        <div class="pill" aria-live="polite"><small>Time</small> <span id="time">0:00</span></div>
+        <button class="btn" id="restartBtn" type="button">Restart</button>
+        <button class="btn btn-ghost" id="peekBtn" type="button" title="Shows all cards briefly">
+          Quick Peek ✨
+        </button>
+      </div>
+
+      <div class="board" id="board" aria-label="Game board"></div>
+
+      <div class="toast" id="status">
+        Tip: Use keyboard too — Tab to a card, Enter/Space to flip.
+      </div>
+
+      <!-- Optional link back to your professional pages -->
+      <a class="backlink" href="index.html">← Back to professional pages</a>
+    </div>
+  </div>
+
+  <!-- Win Modal -->
+  <div class="modal" id="winModal" aria-hidden="true">
+    <div class="modal-card">
+      <div style="font-size:40px;">🎀🔎🎉</div>
+      <h2>Case Closed!</h2>
+      <p id="winText">You matched everything.</p>
+      <div class="modal-actions">
+        <button class="btn" id="playAgainBtn" type="button">Play Again</button>
+        <button class="btn btn-ghost" id="closeModalBtn" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // -----------------------------
+    // Cute True Crime Evidence Match
+    // -----------------------------
+
+    const boardEl = document.getElementById("board");
+    const movesEl = document.getElementById("moves");
+    const timeEl  = document.getElementById("time");
+    const statusEl = document.getElementById("status");
+
+    const restartBtn = document.getElementById("restartBtn");
+    const peekBtn = document.getElementById("peekBtn");
+
+    const winModal = document.getElementById("winModal");
+    const winText = document.getElementById("winText");
+    const playAgainBtn = document.getElementById("playAgainBtn");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+
+    // 8 pairs = 16 cards (nice for a 4x4 board)
+    const EVIDENCE = ["🔎","📁","🧤","🕵️‍♀️","🧬","📌","🗝️","🧾"];
+
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+
+    let moves = 0;
+    let matches = 0;
+
+    let timerId = null;
+    let startTime = null;
+    let timerRunning = false;
+
+    function shuffle(array){
+      for(let i = array.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function formatTime(ms){
+      const totalSec = Math.floor(ms / 1000);
+      const min = Math.floor(totalSec / 60);
+      const sec = totalSec % 60;
+      return `${min}:${String(sec).padStart(2,"0")}`;
+    }
+
+    function startTimer(){
+      if (timerRunning) return;
+      timerRunning = true;
+      startTime = Date.now();
+      timerId = setInterval(() => {
+        timeEl.textContent = formatTime(Date.now() - startTime);
+      }, 250);
+    }
+
+    function stopTimer(){
+      timerRunning = false;
+      clearInterval(timerId);
+      timerId = null;
+    }
+
+    function setStatus(msg){
+      statusEl.textContent = msg;
+    }
+
+    function createCard(symbol){
+      const card = document.createElement("button");
+      card.className = "card";
+      card.type = "button";
+      card.setAttribute("aria-label", "Hidden card");
+      card.dataset.symbol = symbol;
+
+      const back = document.createElement("div");
+      back.className = "card-inner back";
+      back.textContent = "❓";
+
+      const front = document.createElement("div");
+      front.className = "card-inner front";
+      front.textContent = symbol;
+
+      card.appendChild(back);
+      card.appendChild(front);
+
+      // Click + keyboard support
+      card.addEventListener("click", () => flipCard(card));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          flipCard(card);
+        }
+      });
+
+      return card;
+    }
+
+    function buildBoard(){
+      boardEl.innerHTML = "";
+
+      const deck = shuffle([...EVIDENCE, ...EVIDENCE]); // 16 cards
+      deck.forEach(symbol => boardEl.appendChild(createCard(symbol)));
+
+      // reset state
+      firstCard = null;
+      secondCard = null;
+      lockBoard = false;
+      moves = 0;
+      matches = 0;
+      movesEl.textContent = moves;
+
+      stopTimer();
+      timeEl.textContent = "0:00";
+
+      setStatus("Tip: Try matching the evidence pairs. You’ve got this ✨");
+    }
+
+    function flipCard(card){
+      if (lockBoard) return;
+      if (card.classList.contains("flipped")) return;
+      if (card.classList.contains("matched")) return;
+
+      startTimer();
+
+      card.classList.add("flipped");
+      card.setAttribute("aria-label", `Card: ${card.dataset.symbol}`);
+
+      if (!firstCard){
+        firstCard = card;
+        setStatus("Nice! Now find its match.");
+        return;
+      }
+
+      secondCard = card;
+      lockBoard = true;
+
+      moves++;
+      movesEl.textContent = moves;
+
+      checkMatch();
+    }
+
+    function checkMatch(){
+      const isMatch = firstCard.dataset.symbol === secondCard.dataset.symbol;
+
+      if (isMatch){
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        matches++;
+
+        setStatus("Match found! 🔎✨ Keep going!");
+
+        resetTurn();
+
+        if (matches === EVIDENCE.length){
+          // Win!
+          setTimeout(showWin, 450);
+        }
+      } else {
+        setStatus("Not a match—try again 💗");
+        setTimeout(() => {
+          firstCard.classList.remove("flipped");
+          secondCard.classList.remove("flipped");
+          firstCard.setAttribute("aria-label", "Hidden card");
+          secondCard.setAttribute("aria-label", "Hidden card");
+          resetTurn();
+        }, 750);
+      }
+    }
+
+    function resetTurn(){
+      [firstCard, secondCard] = [null, null];
+      lockBoard = false;
+    }
+
+    function showWin(){
+      stopTimer();
+      const finalTime = timeEl.textContent;
+      winText.textContent = `You solved the case in ${moves} moves and ${finalTime}. 🎉`;
+      winModal.classList.add("show");
+      winModal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeWin(){
+      winModal.classList.remove("show");
+      winModal.setAttribute("aria-hidden", "true");
+    }
+
+    function quickPeek(){
+      if (lockBoard) return;
+      const cards = [...document.querySelectorAll(".card")];
+      lockBoard = true;
+
+      cards.forEach(c => {
+        if (!c.classList.contains("matched")) c.classList.add("flipped");
+      });
+
+      setStatus("Quick peek! Memorize fast ✨");
+
+      setTimeout(() => {
+        cards.forEach(c => {
+          if (!c.classList.contains("matched")) c.classList.remove("flipped");
+        });
+        lockBoard = false;
+        setStatus("Okay! Now match the evidence 💗");
+      }, 900);
+    }
+
+    // Buttons
+    restartBtn.addEventListener("click", buildBoard);
+    peekBtn.addEventListener("click", quickPeek);
+    playAgainBtn.addEventListener("click", () => { closeWin(); buildBoard(); });
+    closeModalBtn.addEventListener("click", closeWin);
+
+    // Close modal on background click
+    winModal.addEventListener("click", (e) => {
+      if (e.target === winModal) closeWin();
+    });
+
+    // Init
+    buildBoard();
+  </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+/* =========================
+   Google Font (Cute + Clean)
+   ========================= */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+/* =========================
+   Color Palette
+   ========================= */
+:root {
+  --bg: #f6faf8;            /* soft mint background */
+  --card: #ffffff;          /* clean white cards */
+  --accent: #5fb3a2;        /* bolder sage/teal accent */
+  --accent-light: #e3f3ef;  /* light accent background */
+  --text: #2f3a3a;          /* readable dark teal-gray */
+  --muted: #6f8f88;         /* soft muted text */
+  --border: #cfe7e1;        /* subtle borders */
+}
+
+/* =========================
+   Global Styles
+   ========================= */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Quicksand', system-ui, sans-serif;
+  line-height: 1.7;
+  text-align: center; /* CENTER ALL TEXT */
+}
+
+/* =========================
+   Layout
+   ========================= */
+.container {
+  width: min(900px, 92%);
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* =========================
+   Navigation
+   ========================= */
+.nav {
+  background-color: var(--card);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 0;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Headings
+   ========================= */
+h1 {
+  font-size: clamp(32px, 5vw, 46px);
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+/* =========================
+   Sections
+   ========================= */
+.section {
+  margin-top: 40px;
+  padding: 30px;
+  background-color: var(--card);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+}
+
+/* =========================
+   Cards / Content Blocks
+   ========================= */
+.card {
+  background-color: var(--accent-light);
+  padding: 20px;
+  border-radius: 16px;
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+/* =========================
+   Lists
+   ========================= */
+ol, ul {
+  display: inline-block; /* keeps lists centered */
+  text-align: left;
+  margin: 12px auto;
+  padding-left: 24px;
+}
+
+li {
+  margin: 6px 0;
+}
+
+/* =========================
+   Links
+   ========================= */
+a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+a:hover {
+  color: #4aa092;
+}
+
+/* =========================
+   Images
+   ========================= */
+img {
+  max-width: 90%;
+  border-radius: 18px;
+  margin: 16px auto;
+  display: block;
+  border: 3px solid var(--border);
+}
+
+/* =========================
+   Video Embed
+   ========================= */
+iframe {
+  width: 100%;
+  max-width: 720px;
+  height: 405px;
+  border-radius: 18px;
+  border: 3px solid var(--border);
+  margin: 20px auto;
+  display: block;
+}
+
+/* =========================
+   Tableau Embed Wrapper
+   ========================= */
+.tableau {
+  margin: 30px auto;
+  max-width: 800px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 3px solid var(--border);
+}
+
+/* =========================
+   Footer
+   ========================= */
+footer {
+  margin: 50px 0 30px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}

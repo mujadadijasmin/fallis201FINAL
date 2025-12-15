@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>True Crime</title>
+
+  <!-- Link to your custom stylesheet -->
+   <link href="css/scratch.css" rel="stylesheet" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scratch.css">
+
+</head>
+
+<body>
+  <!-- DIV #1: Page wrapper -->
+  <div class="page">
+
+    <!-- Top Nav (links back to your professional pages) -->
+    <div class="topbar">
+      <div class="topbar-inner">
+        <!--<a class="brand" href="#top">Jasmin Mujadadi</a>-->
+        <div class="navlinks">
+          <a href="index.html">Résumé</a>
+          <a href="game.html">True Crime Game</a>
+          <a href="#tableau">Tableau</a>
+          <!--LINKS
+        </div>
+      </div>
+    </div>
+
+    <!-DIV #2: Hero section -->
+    <div id="top" class="hero">
+      <h1>True Crime: Patterns, Stories, and Reasons</h1>
+      <p class="subtitle">Curiosity, research, and real people behind the statistics</p>
+
+      <!-- On-page anchor link -->
+      <a class="button" href="#watch">Skip to the video ↓</a>
+    </div>
+
+    <!-- DIV #3: Main content -->
+    <div class="content">
+
+      <div class="card">
+        <h2>Why True Crime?</h2>
+        <p>
+          True crime isn’t just about shock value, when researched responsibly, it can highlight patterns,
+          systems, and the importance of victims being remembered with respect. There is a lot behind why these crimes happen, and we often see that it starts from childhood, fear, or drastic negative changes in life. So what causes them to convert their thoughts into reality? That is what we want to find out. 
+        </p>
+      </div>
+        <div class="card">
+        <img src = "img/truecrime.jpeg" alt = "True Crime" class = "page-image" width="600">
+      </div>
+
+      <div class="card">
+        <h2>Case-Study Checklist</h2>
+
+        <!-- Ordered list with unordered list inside -->
+        <ol>
+          <li>Background</li>
+            <ul>
+              <li>Where and when it happened</li>
+              <li>Key people involved</li>
+              <li>What made it unusual</li>
+            </ul>
+          </li>
+          <li>
+            Investigation</li>
+            <ul>
+              <li>Evidence types (witness, digital, forensic)</li>
+              <li>Timeline consistency</li>
+              <li>What changed the outcome</li>
+            </ul>
+          
+          <li>
+            Reflection</li>
+            <ul>
+              <li>Ethical storytelling (focus on victims)</li>
+              <li>What the public learned</li>
+              <li>How prevention could improve</li>
+            </ul>
+          
+        </ol>
+      </div>
+
+      <div id="watch" class="card">
+        <h2>True Crime Story Teller Bailey Sarian</h2>
+        <p class="muted">
+          Bailey Sarian is a great true crime story teller. She tells stories about what happened, who was involved, and the outcome of the court trials while doing her makeup 
+        </p>
+
+        <div class="video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/UbnulKZg3L8"
+            title="Bailey Sarian - Chris Watts | Murder, Mystery & Makeup"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <div id="tableau" class="card">
+        <p class="muted">
+        </p>
+
+        <!-- Tableau embed (public) -->
+        <div class="tableau-wrap">
+          <div class="tableauPlaceholder" id="viz1700000000000" style="position: relative;">
+            <noscript>
+              <a href="#">
+                <img alt="Crime dashboard (Tableau Public)"
+                  src="https://public.tableau.com/static/images/Cr/CRIMEANALYSIS_17059216548310/Dashboard1/1_rss.png"
+                  style="border: none;" />
+              </a>
+            </noscript>
+            <object class="tableauViz" style="display:none;">
+              <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F" />
+              <param name="embed_code_version" value="3" />
+              <param name="site_root" value="" />
+              <param name="name" value="CRIMEANALYSIS_17059216548310/Dashboard1" />
+              <param name="tabs" value="no" />
+              <param name="toolbar" value="yes" />
+              <param name="showVizHome" value="no" />
+            </object>
+          </div>
+        </div>
+
+       
+      </div>
+
+      <div class="card">
+        <p><a href="#top">Back to The Top ↑</a></p>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <p>IS 201 • Jasmin Mujadadi</p>
+    </div>
+  </div>
+
+  <!-- Tableau embed script -->
+  <script type="text/javascript">
+    var divElement = document.getElementById('viz1700000000000');
+    var vizElement = divElement.getElementsByTagName('object')[0];
+    vizElement.style.width = '100%';
+    vizElement.style.height = '700px';
+    var scriptElement = document.createElement('script');
+    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+  </script>
+</body>
+</html>
